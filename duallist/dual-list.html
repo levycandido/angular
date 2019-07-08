@@ -1,0 +1,69 @@
+<div class="dualist-margin">
+   <div class="row">
+        <div class="dual-list dualist-left">
+            <div class="text-right">
+                <div class="row">
+                    <div class="iner-addon col-md-12">
+                        <div class="form-group iner-addon">
+                           <i *ngIf="filtro_itens" class="material-icons material-icon-clear" (click)="filtro_itens=null;">clear</i>
+                            <input  type="text" 
+                                    name="SearchDualList" 
+                                    #filtroItem 
+                                    [(ngModel)]="filtro_itens" 
+                                    class="form-control filtro" 
+                                    placeholder="Filtro"
+                                    
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="record-picker">
+                    <ul [dragula]=compName 
+                        [id]=leftName 
+                        [dragulaModel]="source"
+                         >
+                        <li *ngFor="let item of source | dualListFilter:filtro_itens " 
+                            class="list-group-item" 
+                            [ngClass]="item.selected? listgroupitemprimary : list-group-item-secondary"
+                            (click)="selectRowSource(item, $event)"
+                             >{{item.name}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="dualist-controls">
+            <button type="button"  [disabled]=disabled  class="btn btn-default material-icons-forward" style="color:#337ab7" (click)="moverTodosEsqDir();"></button>
+            <br>
+            <button type="button"  [disabled]=disabled  name="addBtn" class="btn btn-default material-icons-skip-next" style="color : #337ab7" (click)="moverEsqDir();"></button>
+            <br>
+            <button type="button"  [disabled]=disabled  name="removeBtn" class="btn btn-default material-icons-skip-prev" style="color :#337ab7" (click)="moverDirEsq();"></button>
+            <br>
+            <button type="button"  [disabled]=disabled  class="btn btn-default material-icons-rewind" style="color: #337ab7" (click)="moverTodosDirEsq();"></button>
+        </div>
+        <div class="dual-list dualist-right">
+            <div class="row">
+                <div class="iner-addon col-md-12">
+                    <div class="form-group iner-addon">
+                        <i *ngIf="filtro_target" class="material-icons material-icon-clear" (click)="filtro_target=null;">clear</i>
+                        <input type="text" name="SearchDualList" 
+                            [(ngModel)]="filtro_target" 
+                            #filtroTarget 
+                            class="form-control filtro" 
+                            placeholder="Filtro"
+                            
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="record-picker">
+                <ul [dragula]=compName id={{rightName}} [dragulaModel]="target">
+                    <li *ngFor="let targetItem of target  | dualListFilter:filtro_target" class="list-group-item " [ngClass]="targetItem.selected? listgroupitemprimary : list-group-item-secondary"
+                        (click)="selectRowTarget(targetItem, $event)">{{targetItem.name}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    
